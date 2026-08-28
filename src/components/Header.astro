@@ -5,7 +5,10 @@ import ThemeToggle from '@components/ThemeToggle.astro';
 
 <header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a href="/" class="logo">{site.name}<span class="dot">.</span></a>
+    <a href="/" class="logo">
+      <img class="logo-mark" src="/logo.png" alt="" width="30" height="30" />
+      <span>{site.name}<span class="dot">.</span></span>
+    </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
       {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -49,10 +52,21 @@ import ThemeToggle from '@components/ThemeToggle.astro';
   }
 
   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
+  }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    display: block;
+    flex: none;
   }
 
   .logo .dot {
