@@ -87,4 +87,41 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
     height: 22px;
     flex: none;
   }
+
+  /* Pulso constante no botão do WhatsApp (anel + leve batida). */
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-icon-only {
+      animation:
+        wa-ring 2.2s ease-out infinite,
+        wa-beat 2.2s ease-in-out infinite;
+    }
+
+    /* No hover/foco, para o pulso e devolve o realce normal do botão. */
+    .btn-icon-only:hover,
+    .btn-icon-only:focus-visible {
+      animation: none;
+    }
+  }
+
+  @keyframes wa-ring {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+    }
+  }
+
+  @keyframes wa-beat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
 </style>
