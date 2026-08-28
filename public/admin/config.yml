@@ -5,11 +5,11 @@
 
 backend:
   name: github
-  repo: SEU-USUARIO/SEU-REPOSITORIO   # <<< troque pelo seu repo do GitHub
+  repo: 0Cardos0/portfolio-site-cardos0
   branch: main
-  # URL do proxy de login OAuth (ex.: Cloudflare Worker sveltia-cms-auth).
-  # Veja o passo a passo em ADMIN.md.
-  base_url: https://SEU-PROXY-OAUTH.workers.dev
+  # URL do proxy de login OAuth (Cloudflare Worker sveltia-cms-auth).
+  # >>> TROQUE pela URL do SEU worker depois de fazer o deploy (passo 4 do ADMIN.md).
+  base_url: https://COLE-A-URL-DO-WORKER-AQUI.workers.dev
 
 # Editar localmente sem GitHub:  npm run admin:local  +  npm run dev
 # depois abra http://localhost:4321/admin/
@@ -22,8 +22,8 @@ public_folder: "/uploads"
 publish_mode: simple
 locale: "pt"
 
-site_url: https://cardos0.example.com          # <<< troque pela URL final
-display_url: https://cardos0.example.com       # <<< troque pela URL final
+site_url: https://cardos0.com.br
+display_url: https://cardos0.com.br
 
 collections:
   # ---------------------------------------------------------------------------

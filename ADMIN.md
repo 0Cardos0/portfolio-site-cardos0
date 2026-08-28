@@ -24,34 +24,39 @@ O que dá para editar pelo painel:
 
 ---
 
-## 1. Subir para o GitHub
+## 1. Subir para o GitHub  ✅ feito
+
+Repositório: **https://github.com/0Cardos0/portfolio-site-cardos0** (público, branch `main`).
+
+Para enviar mudanças novas:
 
 ```powershell
-# instale o Git antes: https://git-scm.com/download/win
-git init
-git add .
-git commit -m "Site + painel"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-git push -u origin main
+$env:Path = "C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;" + $env:Path
+git add -A
+git commit -m "descrição"
+git push
 ```
 
-## 2. Publicar
+## 2. Publicar (Cloudflare Pages)
 
-Qualquer uma serve (build `npm run build`, saída `dist`):
+1. Cloudflare → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
+2. Escolha o repo `0Cardos0/portfolio-site-cardos0`.
+3. Build: preset **Astro**, comando `npm run build`, saída `dist`. Node vem do `.nvmrc` (20).
+4. **Save and Deploy** → sai um endereço `*.pages.dev`.
+5. **Custom domains** → adicione `cardos0.com.br` (e `www` se quiser). Siga as
+   instruções de DNS que o Cloudflare mostrar. Espere o certificado ficar "Active".
 
-- **Cloudflare Pages** — conecta o repo, framework preset "Astro".
-- **Vercel** — importa o repo, detecta Astro sozinho.
-- **GitHub Pages** — o workflow em `.github/workflows/deploy.yml` já faz isso.
+> O `config.yml`, o `astro.config.mjs`, o `site.json` e o `robots.txt` já estão
+> com `https://cardos0.com.br`.
 
 ## 3. Criar o GitHub OAuth App
 
-GitHub → *Settings → Developer settings → OAuth Apps → New OAuth App*:
+GitHub → *Settings → Developer settings → OAuth Apps → **New OAuth App***:
 
-- **Application name:** Painel Cardos0
-- **Homepage URL:** `https://SEU-DOMINIO`
-- **Authorization callback URL:** `https://SEU-PROXY.workers.dev/callback`
-  (o valor exato sai do passo 4)
+- **Application name:** `Painel Cardos0`
+- **Homepage URL:** `https://cardos0.com.br`
+- **Authorization callback URL:** `https://sveltia-cms-auth.SEU-SUBDOMINIO.workers.dev/callback`
+  (a URL exata do worker sai do passo 4 — pode voltar aqui e editar depois)
 
 Guarde o **Client ID** e gere um **Client Secret**.
 
@@ -60,32 +65,30 @@ Guarde o **Client ID** e gere um **Client Secret**.
 Use o **`sveltia-cms-auth`** (compatível com o Decap), deploy em ~2 min:
 
 1. <https://github.com/sveltia/sveltia-cms-auth> → botão **Deploy to Cloudflare**.
-2. Nas *Settings → Variables* do Worker, defina:
+2. Nas *Settings → Variables and Secrets* do Worker, defina:
    - `GITHUB_CLIENT_ID` = client id do passo 3
-   - `GITHUB_CLIENT_SECRET` = client secret do passo 3
-   - `ALLOWED_DOMAINS` = `SEU-DOMINIO` (e `*.pages.dev` / `*.vercel.app` se for testar por lá)
+   - `GITHUB_CLIENT_SECRET` = client secret do passo 3  *(marque como Secret)*
+   - `ALLOWED_DOMAINS` = `cardos0.com.br` — para testar antes do domínio ligar,
+     use `cardos0.com.br,*.pages.dev`
 3. A URL final fica algo como `https://sveltia-cms-auth.SEU-SUBDOMINIO.workers.dev`.
-4. Volte ao passo 3 e confirme o *callback* como `.../callback`.
+4. Volte ao passo 3 e confirme o *callback* como `<essa URL>/callback`.
 
 > Alternativa: qualquer implementação de "Netlify/Decap OAuth provider" serve
 > (há versões para Vercel, Deno Deploy, etc.). O que importa é o `base_url`.
 
 ## 5. Apontar o `config.yml`
 
-Edite **`public/admin/config.yml`**:
+Edite **`public/admin/config.yml`** — só falta a linha `base_url`:
 
 ```yaml
 backend:
   name: github
-  repo: SEU-USUARIO/SEU-REPOSITORIO
+  repo: 0Cardos0/portfolio-site-cardos0   # já está
   branch: main
-  base_url: https://sveltia-cms-auth.SEU-SUBDOMINIO.workers.dev
-
-site_url: https://SEU-DOMINIO
-display_url: https://SEU-DOMINIO
+  base_url: https://sveltia-cms-auth.SEU-SUBDOMINIO.workers.dev   # <<< cole a URL do passo 4
 ```
 
-Commit e push. Pronto: acesse **`https://SEU-DOMINIO/admin/`** e clique em
+Commit e push. Pronto: acesse **`https://cardos0.com.br/admin/`** e clique em
 *Login with GitHub*.
 
 ---

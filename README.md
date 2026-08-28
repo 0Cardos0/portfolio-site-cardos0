@@ -150,7 +150,7 @@ Ajuste as variáveis em `src/styles/tokens.css` (`:root` = tema escuro,
 
 ## 5. Antes de publicar
 
-- Troque `https://cardos0.example.com` pela URL real em: `astro.config.mjs`,
+- URL do site: `https://cardos0.com.br` (já aplicada em: `astro.config.mjs`,
   `src/data/site.json` (`url`), `public/robots.txt` e `public/admin/config.yml`
   (`site_url` / `display_url`). Isso alimenta canonical, sitemap, Open Graph e o
   JSON-LD.

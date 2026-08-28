@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   // Troque pela URL final do site (usado em canonical, sitemap e Open Graph).
-  site: 'https://cardos0.example.com',
+  site: 'https://cardos0.com.br',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   build: {
