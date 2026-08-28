@@ -32,6 +32,10 @@ export interface ContactLink {
   href: string;
   /** Marca o botão principal (estilo preenchido). */
   primary?: boolean;
+  /** Exibe o rótulo como texto selecionável, sem virar link clicável. */
+  plain?: boolean;
+  /** Mostra um ícone no lugar do texto. Suportado: 'whatsapp'. */
+  icon?: 'whatsapp';
 }
 
 export interface SiteConfig {
