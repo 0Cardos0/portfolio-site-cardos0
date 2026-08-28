@@ -25,28 +25,40 @@
     "lead": "Estrutura, estratégia e suporte reunidos em uma entrega profissional.",
     "items": [
       {
+        "title": "Landing page de conversão",
+        "description": "Uma página, um objetivo: estrutura, texto e design apontando o visitante para a ação que importa."
+      },
+      {
         "title": "Site institucional",
-        "description": "Sua sede digital completa, projetada para transmitir confiança e transformar visitantes em clientes."
+        "description": "Sua sede digital completa, com as seções certas para transmitir confiança e gerar contato."
       },
       {
-        "title": "Landing pages",
-        "description": "Páginas focadas em uma única ação, com mensagem direta e estrutura orientada à conversão."
+        "title": "Site one-page",
+        "description": "Institucional enxuto em uma rolagem só — presença profissional sem excesso de páginas."
       },
       {
-        "title": "SEO inicial",
-        "description": "Otimização técnica para o Google entender quem você é, o que oferece e onde atua."
+        "title": "Redesign de site",
+        "description": "Seu site atual repensado: visual moderno, carregamento rápido e conteúdo reorganizado."
       },
       {
-        "title": "Estrutura responsiva",
-        "description": "Experiência consistente em smartphones, tablets, notebooks e telas maiores."
+        "title": "SEO on-page inicial",
+        "description": "Títulos, meta tags, dados estruturados e sitemap para o Google entender e ranquear seu site."
+      },
+      {
+        "title": "Performance & PageSpeed",
+        "description": "Código leve e imagens otimizadas para o site abrir rápido e pontuar alto no PageSpeed."
       },
       {
         "title": "Integração com WhatsApp",
-        "description": "Caminhos de contato claros para transformar visitas em conversas reais com sua equipe."
+        "description": "Botão flutuante e mensagem pré-preenchida para transformar a visita em conversa na hora."
       },
       {
-        "title": "Suporte premium",
-        "description": "Cuidamos da tecnologia para você manter o foco na operação e no crescimento do negócio."
+        "title": "Painel de edição (CMS)",
+        "description": "Um painel simples para você mesmo alterar textos, imagens e projetos, sem depender de ninguém."
+      },
+      {
+        "title": "Manutenção mensal",
+        "description": "Ajustes, atualizações, backup e monitoramento contínuos para o site nunca ficar para trás."
       }
     ]
   },
