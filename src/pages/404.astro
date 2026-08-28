@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página não encontrada" noindex>
+  <section class="section not-found">
+    <div class="container">
+      <p class="section-tag">Erro 404</p>
+      <h1>Esta página não existe</h1>
+      <p class="section-lead">
+        O endereço pode ter mudado ou o projeto ainda não foi publicado.
+      </p>
+      <a href="/" class="btn btn-primary">Voltar para o início</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 140px 0;
+  }
+
+  .not-found .section-lead {
+    margin: 0 auto 28px;
+  }
+
+  .not-found h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+</style>

@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Design tokens — Cardos0
+   Tema escuro por padrão; [data-theme="light"] sobrescreve.
+   ========================================================================== */
+
+:root {
+  --bg: #0b0d12;
+  --bg-alt: #12151d;
+  --surface: #171b25;
+  --surface-hover: #1f2430;
+  --border: #262c3a;
+  --text: #eef0f4;
+  --text-muted: #9aa1b1;
+  --accent: #7c9eff;
+  --accent-strong: #a9c1ff;
+  --accent-contrast: #0b0d12;
+
+  --radius: 14px;
+  --radius-pill: 999px;
+  --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --container: 1140px;
+  --gutter: 24px;
+
+  --header-h: 72px;
+  --transition: 0.2s ease;
+}
+
+[data-theme='light'] {
+  --bg: #f7f7fb;
+  --bg-alt: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f0f1f7;
+  --border: #e3e5ee;
+  --text: #14161f;
+  --text-muted: #5c6072;
+  --accent: #3f5fe0;
+  --accent-strong: #2a45c4;
+  --accent-contrast: #ffffff;
+  --shadow: 0 20px 60px -25px rgba(20, 22, 31, 0.25);
+}

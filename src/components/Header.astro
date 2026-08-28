@@ -1,0 +1,215 @@
+---
+import { site } from '@config/site';
+import ThemeToggle from '@components/ThemeToggle.astro';
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">{site.name}<span class="dot">.</span></a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle />
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    transition: box-shadow var(--transition);
+  }
+
+  .site-header.is-scrolled {
+    box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.45);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .logo .dot {
+    color: var(--accent);
+  }
+
+  .main-nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .main-nav a {
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .main-nav a:hover,
+  .main-nav a:focus-visible {
+    color: var(--text);
+  }
+
+  .main-nav a:hover::after,
+  .main-nav a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .main-nav a::after {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .main-nav a::after {
+      display: none;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  @media (max-width: 640px) {
+    .main-nav {
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      padding: 20px 24px;
+      gap: 18px;
+      display: none;
+    }
+
+    .main-nav.is-open {
+      display: flex;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .menu-toggle.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  // ---- Tema claro/escuro (persistido em localStorage) ----
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  themeToggle?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* modo privado / storage indisponível */
+    }
+  });
+
+  // ---- Menu mobile ----
+  const menuToggle = document.getElementById('menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = mainNav?.classList.toggle('is-open') ?? false;
+    menuToggle.classList.toggle('is-open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  mainNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('is-open');
+      menuToggle?.classList.remove('is-open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      menuToggle?.setAttribute('aria-label', 'Abrir menu');
+    });
+  });
+
+  // ---- Sombra sutil no header ao rolar ----
+  const header = document.getElementById('site-header');
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

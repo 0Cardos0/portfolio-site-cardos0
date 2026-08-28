@@ -1,0 +1,42 @@
+---
+import { site } from '@config/site';
+const { tag, heading, lead, steps } = site.process;
+---
+
+<section id="metodologia" class="section">
+  <div class="container">
+    <p class="section-tag" data-reveal>{tag}</p>
+    <h2 data-reveal>{heading}</h2>
+    <p class="section-lead" data-reveal>{lead}</p>
+
+    <ol class="card-grid process-grid">
+      {
+        steps.map((step, i) => (
+          <li class="feature-card" data-reveal>
+            <span class="feature-index">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

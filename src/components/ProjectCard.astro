@@ -1,0 +1,179 @@
+---
+import type { Project } from '@lib/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { data, id } = project;
+const href = `/projetos/${id}/`;
+---
+
+<article class="project-card" data-category={data.category} data-reveal>
+  <a class="project-thumb-link" href={href} aria-label={`Abrir ${data.title}`}>
+    {
+      data.thumb ? (
+        <img
+          class="project-thumb"
+          src={data.thumb}
+          alt={data.thumbAlt ?? `Prévia do site ${data.title}`}
+          width={640}
+          height={400}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span class="project-thumb placeholder-thumb">
+          <span>Screenshot em breve</span>
+        </span>
+      )
+    }
+  </a>
+
+  <div class="project-body">
+    <h3><a href={href}>{data.title}</a></h3>
+    <p>{data.description}</p>
+
+    {
+      data.tags.length > 0 && (
+        <div class="tags">
+          {data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )
+    }
+
+    <a href={href} class="project-link">Ver projeto &rarr;</a>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  /* Foco de luz que segue o cursor (spotlight) */
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    background: radial-gradient(
+      340px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 65%
+    );
+  }
+
+  .project-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card:hover::after,
+  .project-card:focus-within::after {
+    opacity: 1;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      var(--shadow),
+      0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+  }
+
+  .project-card.is-hidden {
+    display: none;
+  }
+
+  .project-thumb-link {
+    display: block;
+    overflow: hidden;
+  }
+
+  .project-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .project-card:hover .project-thumb {
+    transform: scale(1.05);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-card:hover {
+      transform: none;
+    }
+    .project-card:hover .project-thumb {
+      transform: none;
+    }
+  }
+
+  .placeholder-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--surface-hover) 0 10px,
+      transparent 10px 20px
+    );
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .project-body {
+    padding: 22px;
+  }
+
+  .project-body h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  .project-body p {
+    font-size: 0.92rem;
+    margin-bottom: 16px;
+  }
+
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .project-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+</style>

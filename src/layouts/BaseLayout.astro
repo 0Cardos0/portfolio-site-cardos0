@@ -1,0 +1,235 @@
+---
+import '@styles/global.css';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import { site } from '@config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Caminho da imagem de Open Graph em /public (ex.: "/og.png"). */
+  image?: string;
+  /** Adiciona <meta name="robots" content="noindex"> quando true. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  image = '/og.png',
+  noindex = false,
+} = Astro.props;
+
+const origin = Astro.site ?? new URL(site.url);
+const pageTitle = title ? `${title} — ${site.name}` : site.title;
+const canonical = new URL(Astro.url.pathname, origin).href;
+const ogImage = new URL(image, origin).href;
+
+const isHome = Astro.url.pathname === '/';
+const email = site.contact.links
+  .find((l) => l.href.startsWith('mailto:'))
+  ?.href.replace('mailto:', '');
+const sameAs = Object.values(site.social).filter(Boolean);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  description: site.description,
+  url: origin.href,
+  image: new URL('/og.png', origin).href,
+  areaServed: 'BR',
+  founder: { '@type': 'Person', name: site.author },
+  knowsAbout: [
+    'Criação de sites',
+    'Design de sites',
+    'Desenvolvimento web',
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Front-end',
+    'Landing pages',
+  ],
+  ...(email ? { email } : {}),
+  ...(sameAs.length ? { sameAs } : {}),
+};
+
+// Analytics: só em produção e com domínio configurado.
+const plausible = import.meta.env.PROD && site.analytics.plausibleDomain;
+const plausibleSrc =
+  site.analytics.plausibleSrc || 'https://plausible.io/js/script.js';
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={site.locale.replace('-', '_')} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="color-scheme" content="dark light" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* Aplica o tema salvo antes da pintura para evitar "flash". */}
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var theme =
+            saved ||
+            (window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
+    {
+      isHome && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
+
+    {
+      plausible && (
+        <script
+          defer
+          data-domain={site.analytics.plausibleDomain}
+          src={plausibleSrc}
+        />
+      )
+    }
+  </head>
+
+  <body>
+    <div class="bg-rays" aria-hidden="true">
+      <i style="--x: 6vw; --w: 12vmax; --dur: 24s; --delay: -3s;"></i>
+      <i style="--x: 28vw; --w: 18vmax; --dur: 37s; --delay: -13s;"></i>
+      <i style="--x: 52vw; --w: 10vmax; --dur: 20s; --delay: -8s;"></i>
+      <i style="--x: 71vw; --w: 20vmax; --dur: 44s; --delay: -22s;"></i>
+      <i style="--x: 88vw; --w: 13vmax; --dur: 31s; --delay: -17s;"></i>
+    </div>
+    <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <Header />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---- Barra de progresso de leitura ---- */
+      const bar = document.getElementById('scroll-progress');
+      if (bar && !reduce) {
+        let ticking = false;
+        const update = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+          bar.style.setProperty('--progress', String(p));
+          ticking = false;
+        };
+        update();
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+          },
+          { passive: true },
+        );
+        window.addEventListener('resize', update, { passive: true });
+      }
+
+      /* ---- Revelação encadeada ao entrar na viewport ---- */
+      if (!reduce && 'IntersectionObserver' in window) {
+        const items = Array.from(
+          document.querySelectorAll<HTMLElement>('[data-reveal]'),
+        );
+        items.forEach((el) => el.classList.add('reveal-init'));
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              const el = entry.target as HTMLElement;
+
+              // Escalona o atraso entre irmãos que também são [data-reveal]
+              const sibs = el.parentElement
+                ? Array.from(el.parentElement.children).filter((c) =>
+                    c.hasAttribute('data-reveal'),
+                  )
+                : [];
+              const i = Math.max(0, sibs.indexOf(el));
+              el.style.setProperty(
+                '--reveal-delay',
+                `${Math.min(i, 8) * 65}ms`,
+              );
+
+              el.classList.replace('reveal-init', 'reveal-in');
+              io.unobserve(el);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+        );
+
+        items.forEach((el) => io.observe(el));
+      }
+
+      /* ---- Foco de luz nos cards seguindo o cursor ---- */
+      const glowCards = document.querySelectorAll<HTMLElement>(
+        '.feature-card, .project-card',
+      );
+      for (const card of glowCards) {
+        card.addEventListener(
+          'pointermove',
+          (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            card.style.setProperty('--my', `${e.clientY - r.top}px`);
+          },
+          { passive: true },
+        );
+      }
+    </script>
+  </body>
+</html>

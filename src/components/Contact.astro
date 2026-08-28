@@ -1,0 +1,48 @@
+---
+import { site } from '@config/site';
+const { tag, heading, lead, links } = site.contact;
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<section id="contato" class="section">
+  <div class="container contact-inner">
+    <p class="section-tag" data-reveal>{tag}</p>
+    <h2 data-reveal>{heading}</h2>
+    <p class="section-lead" data-reveal>{lead}</p>
+
+    <div class="contact-links" data-reveal>
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={['btn', link.primary ? 'btn-primary' : 'btn-ghost']}
+            {...isExternal(link.href)
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {}}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-inner {
+    text-align: center;
+  }
+
+  .contact-inner .section-lead {
+    margin-inline: auto;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+  }
+</style>

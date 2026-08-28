@@ -1,0 +1,203 @@
+# =============================================================================
+#  Painel de administração (Decap CMS)
+#  Guia de configuração completo em: ADMIN.md (raiz do projeto)
+# =============================================================================
+
+backend:
+  name: github
+  repo: SEU-USUARIO/SEU-REPOSITORIO   # <<< troque pelo seu repo do GitHub
+  branch: main
+  # URL do proxy de login OAuth (ex.: Cloudflare Worker sveltia-cms-auth).
+  # Veja o passo a passo em ADMIN.md.
+  base_url: https://SEU-PROXY-OAUTH.workers.dev
+
+# Editar localmente sem GitHub:  npm run admin:local  +  npm run dev
+# depois abra http://localhost:4321/admin/
+local_backend: true
+
+# Toda imagem enviada pelo painel vai para public/uploads e é referenciada como /uploads/...
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: simple
+locale: "pt"
+
+site_url: https://cardos0.example.com          # <<< troque pela URL final
+display_url: https://cardos0.example.com       # <<< troque pela URL final
+
+collections:
+  # ---------------------------------------------------------------------------
+  #  AJUSTES DO SITE  ->  src/data/site.json
+  # ---------------------------------------------------------------------------
+  - name: "config"
+    label: "Ajustes do site"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Textos, seções e contatos"
+        file: "src/data/site.json"
+        fields:
+          - { label: "Nome / marca", name: "name", widget: "string" }
+          - { label: "Título da aba do navegador", name: "title", widget: "string" }
+          - { label: "Descrição (SEO)", name: "description", widget: "text" }
+          - { label: "URL do site", name: "url", widget: "string", hint: "Ex.: https://cardos0.com.br (sem barra no final)" }
+          - { label: "Idioma", name: "locale", widget: "hidden", default: "pt-BR" }
+          - { label: "Autor (nome da pessoa)", name: "author", widget: "string" }
+
+          - label: "Menu de navegação"
+            name: "nav"
+            widget: "list"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Texto", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string", hint: "Ex.: /#projetos" }
+
+          - label: "Topo / Apresentação"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta (acima do título)", name: "tag", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string", hint: "Use {palavra} para destacar com a cor de acento" }
+              - label: "Parágrafos"
+                name: "paragraphs"
+                widget: "list"
+                field: { label: "Parágrafo", name: "texto", widget: "text" }
+              - label: "Números (cards)"
+                name: "stats"
+                widget: "list"
+                summary: "{{fields.number}} — {{fields.label}}"
+                fields:
+                  - { label: "Número", name: "number", widget: "string" }
+                  - { label: "Legenda", name: "label", widget: "string" }
+              - label: "Foto"
+                name: "photo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Imagem", name: "src", widget: "image" }
+                  - { label: "Texto alternativo", name: "alt", widget: "string" }
+
+          - label: "Hero (botões do topo)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Eyebrow (linha pequena)", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string", hint: "Use {palavra} para destacar" }
+              - { label: "Texto de apoio", name: "lead", widget: "text" }
+              - label: "Botão principal"
+                name: "primaryCta"
+                widget: "object"
+                fields:
+                  - { label: "Texto", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+              - label: "Botão secundário"
+                name: "secondaryCta"
+                widget: "object"
+                fields:
+                  - { label: "Texto", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+              - { label: "Aviso (linha com bolinha verde)", name: "note", widget: "string", required: false }
+
+          - label: "Serviços"
+            name: "services"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta", name: "tag", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string" }
+              - { label: "Texto de apoio", name: "lead", widget: "text" }
+              - label: "Itens"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+
+          - label: "Metodologia"
+            name: "process"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta", name: "tag", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string" }
+              - { label: "Texto de apoio", name: "lead", widget: "text" }
+              - label: "Etapas"
+                name: "steps"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+
+          - label: "Projetos (títulos da seção)"
+            name: "projects"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta", name: "tag", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string" }
+              - { label: "Texto de apoio", name: "lead", widget: "text" }
+
+          - label: "Contato"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta", name: "tag", widget: "string" }
+              - { label: "Título", name: "heading", widget: "string" }
+              - { label: "Texto de apoio", name: "lead", widget: "text" }
+              - label: "Links / botões"
+                name: "links"
+                widget: "list"
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "Texto", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string", hint: "mailto:..., https://wa.me/55..., https://..." }
+                  - { label: "É o botão principal?", name: "primary", widget: "boolean", required: false, default: false }
+
+          - label: "Redes sociais (rodapé)"
+            name: "social"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "GitHub", name: "github", widget: "string", required: false }
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+
+          - label: "Analytics"
+            name: "analytics"
+            widget: "object"
+            fields:
+              - { label: "Domínio no Plausible", name: "plausibleDomain", widget: "string", required: false, hint: "Ex.: cardos0.com.br — vazio = desativado" }
+              - { label: "Script Plausible (self-host)", name: "plausibleSrc", widget: "string", required: false }
+
+  # ---------------------------------------------------------------------------
+  #  PROJETOS  ->  src/content/projetos/*.md
+  # ---------------------------------------------------------------------------
+  - name: "projetos"
+    label: "Projetos"
+    label_singular: "Projeto"
+    description: "Trabalhos exibidos na seção Projetos."
+    folder: "src/content/projetos"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}  ·  {{category}}  ·  {{#if draft}}RASCUNHO{{/if}}"
+    sortable_fields: ["order", "date", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição (aparece no card)", name: "description", widget: "text" }
+      - { label: "Categoria", name: "category", widget: "select", options: ["institucional", "comunidade", "landing"], default: "institucional" }
+      - { label: "Tags", name: "tags", widget: "list", default: [], hint: "Ex.: Responsivo, WhatsApp" }
+      - { label: "Screenshot", name: "thumb", widget: "image", required: false, hint: "Sem imagem = mostra 'Screenshot em breve'" }
+      - { label: "Texto alternativo da screenshot", name: "thumbAlt", widget: "string", required: false }
+      - { label: "Link do site publicado", name: "url", widget: "string", required: false, hint: "https://..." }
+      - { label: "Cliente", name: "client", widget: "string", required: false }
+      - { label: "Ano", name: "year", widget: "number", required: false, value_type: "int", min: 2000, max: 2100 }
+      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "Usada para ordenar quando a 'Ordem' empata" }
+      - { label: "Destaque", name: "featured", widget: "boolean", default: false }
+      - { label: "Ordem", name: "order", widget: "number", default: 0, value_type: "int", hint: "Menor aparece primeiro" }
+      - { label: "Rascunho (não publica)", name: "draft", widget: "boolean", default: false }
+      - { label: "Conteúdo da página do projeto", name: "body", widget: "markdown" }

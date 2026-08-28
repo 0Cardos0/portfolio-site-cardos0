@@ -1,0 +1,304 @@
+---
+import { site } from '@config/site';
+
+const { tag, heading, paragraphs, stats, photo } = site.about;
+const { primaryCta, secondaryCta, note } = site.hero;
+
+// "... do {design} à {publicação}." -> partes com destaque
+const headingParts = heading.split(/(\{[^}]+\})/g).filter(Boolean);
+---
+
+<section id="sobre" class="section intro">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="container about-grid" class:list={[{ 'has-photo': photo }]}>
+    {
+      photo && (
+        <figure class="about-photo" data-reveal="left">
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            width="694"
+            height="885"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      )
+    }
+
+    <div class="about-text">
+      <p class="kicker" data-reveal>{tag}</p>
+
+      <h1 data-reveal>
+        {
+          headingParts.map((part) =>
+            part.startsWith('{') && part.endsWith('}') ? (
+              <span class="highlight">{part.slice(1, -1)}</span>
+            ) : (
+              <Fragment>{part}</Fragment>
+            ),
+          )
+        }
+      </h1>
+
+      {paragraphs.map((text) => <p data-reveal>{text}</p>)}
+
+      <div class="intro-cta" data-reveal>
+        <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>
+        <a href={secondaryCta.href} class="btn btn-ghost">{secondaryCta.label}</a>
+      </div>
+
+      {
+        note && (
+          <p class="intro-note" data-reveal>
+            <span class="dot" aria-hidden="true" />
+            {note}
+          </p>
+        )
+      }
+    </div>
+
+    <ul class="about-stats">
+      {
+        stats.map((stat) => (
+          <li class="stat" data-reveal="zoom">
+            <span class="stat-number">{stat.number}</span>
+            <span class="stat-label">{stat.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .intro {
+    position: relative;
+    padding-top: 96px;
+    overflow: hidden;
+  }
+
+  /* Aurora animada — brilho que se move continuamente atrás do conteúdo */
+  .aurora {
+    position: absolute;
+    inset: -30% -15% auto -15%;
+    height: 90%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.7;
+  }
+
+  .aurora::before,
+  .aurora::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .aurora::before {
+    width: 44vw;
+    height: 44vw;
+    left: -4%;
+    top: -12%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent) 70%, transparent),
+      transparent 70%
+    );
+    animation: aurora-drift-a 20s ease-in-out infinite alternate;
+  }
+
+  .aurora::after {
+    width: 34vw;
+    height: 34vw;
+    right: 2%;
+    top: -4%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent-strong) 60%, transparent),
+      transparent 70%
+    );
+    animation: aurora-drift-b 26s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-drift-a {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(14%, 10%, 0) scale(1.2);
+    }
+  }
+
+  @keyframes aurora-drift-b {
+    from {
+      transform: translate3d(0, 0, 0) scale(1.1);
+    }
+    to {
+      transform: translate3d(-12%, 8%, 0) scale(0.85);
+    }
+  }
+
+  [data-theme='light'] .aurora {
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora::before,
+    .aurora::after {
+      animation: none;
+    }
+  }
+
+  .about-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* Com foto: coluna da imagem + coluna de texto; stats ocupam a linha toda. */
+  .about-grid.has-photo {
+    grid-template-columns: 320px 1fr;
+    gap: 44px 64px;
+  }
+
+  .about-photo {
+    margin: 0;
+  }
+
+  .about-photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .kicker {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .about-text h1 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .highlight {
+    background: linear-gradient(
+      120deg,
+      var(--accent) 0%,
+      var(--accent-strong) 40%,
+      var(--accent) 80%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: highlight-shimmer 7s ease-in-out infinite;
+  }
+
+  @keyframes highlight-shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .highlight {
+      animation: none;
+    }
+  }
+
+  .about-text p {
+    font-size: 1.02rem;
+  }
+
+  .intro-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .intro-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .intro-note .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3fbf6f;
+    box-shadow: 0 0 0 4px color-mix(in srgb, #3fbf6f 22%, transparent);
+  }
+
+  .about-stats {
+    display: grid;
+    gap: 24px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about-grid.has-photo .about-stats {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .stat {
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 860px) {
+    .about-grid,
+    .about-grid.has-photo {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-photo {
+      max-width: 300px;
+    }
+
+    .about-grid.has-photo .about-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

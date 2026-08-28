@@ -1,0 +1,138 @@
+---
+import { site } from '@config/site';
+const year = new Date().getFullYear();
+
+const social = Object.entries(site.social).filter(([, href]) => Boolean(href)) as [
+  string,
+  string,
+][];
+
+const socialLabels: Record<string, string> = {
+  github: 'GitHub',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+};
+---
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="/" class="logo">{site.name}<span class="dot">.</span></a>
+      <p>{site.hero.eyebrow}</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Rodapé">
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    {
+      social.length > 0 && (
+        <div class="footer-social">
+          {social.map(([key, href]) => (
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {socialLabels[key] ?? key}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} {site.name}. Todos os direitos reservados.</p>
+    <p class="footer-meta">
+      Criado por Cardos0
+      <span aria-hidden="true">·</span>
+      <a href="/admin/" rel="nofollow">Painel</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    font-size: 0.9rem;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32px;
+    padding-top: 48px;
+    padding-bottom: 32px;
+  }
+
+  .footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-brand .logo .dot {
+    color: var(--accent);
+  }
+
+  .footer-brand p {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    max-width: 260px;
+  }
+
+  .footer-nav,
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .footer-nav a,
+  .footer-social a {
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+
+  .footer-nav a:hover,
+  .footer-social a:hover {
+    color: var(--text);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 20px;
+    padding-bottom: 28px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+  }
+
+  .footer-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-meta a {
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+
+  .footer-meta a:hover {
+    color: var(--text);
+  }
+
+  @media (max-width: 560px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+</style>

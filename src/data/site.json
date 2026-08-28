@@ -1,0 +1,110 @@
+{
+  "name": "Cardos0",
+  "title": "Cardos0 — Criação de Sites | Matheus",
+  "description": "Matheus (Cardos0) cria sites sob medida em HTML, CSS e JavaScript — do design à publicação. Sites rápidos, responsivos e fáceis de manter.",
+  "url": "https://cardos0.example.com",
+  "locale": "pt-BR",
+  "author": "Matheus",
+  "nav": [
+    { "label": "Serviços", "href": "/#servicos" },
+    { "label": "Metodologia", "href": "/#metodologia" },
+    { "label": "Projetos", "href": "/#projetos" },
+    { "label": "Contato", "href": "/#contato" }
+  ],
+  "hero": {
+    "eyebrow": "Criação de Sites — Design & Código",
+    "heading": "Sites sob medida, do {design} à {publicação}.",
+    "lead": "Sou o Matheus. Há 8 anos crio sites que unem uma identidade visual forte a um código leve, rápido e fácil de manter.",
+    "primaryCta": { "label": "Ver projetos", "href": "/#projetos" },
+    "secondaryCta": { "label": "Iniciar um projeto", "href": "/#contato" },
+    "note": "Disponível para novos projetos."
+  },
+  "services": {
+    "tag": "Serviços",
+    "heading": "Tudo o que sua empresa precisa para ocupar seu espaço digital.",
+    "lead": "Estrutura, estratégia e suporte reunidos em uma entrega profissional.",
+    "items": [
+      {
+        "title": "Site institucional",
+        "description": "Sua sede digital completa, projetada para transmitir confiança e transformar visitantes em clientes."
+      },
+      {
+        "title": "Landing pages",
+        "description": "Páginas focadas em uma única ação, com mensagem direta e estrutura orientada à conversão."
+      },
+      {
+        "title": "SEO inicial",
+        "description": "Otimização técnica para o Google entender quem você é, o que oferece e onde atua."
+      },
+      {
+        "title": "Estrutura responsiva",
+        "description": "Experiência consistente em smartphones, tablets, notebooks e telas maiores."
+      },
+      {
+        "title": "Integração com WhatsApp",
+        "description": "Caminhos de contato claros para transformar visitas em conversas reais com sua equipe."
+      },
+      {
+        "title": "Suporte premium",
+        "description": "Cuidamos da tecnologia para você manter o foco na operação e no crescimento do negócio."
+      }
+    ]
+  },
+  "process": {
+    "tag": "Metodologia",
+    "heading": "Metodologia em 4 etapas",
+    "lead": "Um processo claro do entendimento do negócio ao lançamento.",
+    "steps": [
+      {
+        "title": "Entender",
+        "description": "Mergulhamos no seu modelo de negócio, posicionamento, mercado e público-alvo."
+      },
+      {
+        "title": "Estratégia",
+        "description": "Definimos a mensagem e a melhor estrutura para gerar clareza, autoridade e oportunidades."
+      },
+      {
+        "title": "Criação",
+        "description": "Unimos design e desenvolvimento para construir uma experiência rápida e profissional."
+      },
+      {
+        "title": "Resultados",
+        "description": "Publicamos, acompanhamos e preparamos a base para sua presença digital continuar crescendo."
+      }
+    ]
+  },
+  "about": {
+    "tag": "Cardos0 — Criação de Sites",
+    "heading": "Sites sob medida, do {design} à {publicação}.",
+    "paragraphs": [
+      "Sou o Matheus e crio sites há 8 anos. Nesse tempo passei por projetos de todos os tamanhos — de páginas institucionais a landing pages e portais com bastante conteúdo — sempre cuidando das duas pontas: o design, que dá identidade, e o código, que faz tudo funcionar rápido e sem dor de cabeça.",
+      "Trabalho no projeto de ponta a ponta: entendo o que o site precisa resolver, desenho a estrutura e o visual e implemento tudo em HTML, CSS e JavaScript, com atenção a performance, responsividade e acessibilidade. A entrega é um site leve, fácil de manter e pronto para crescer junto com o seu objetivo."
+    ],
+    "stats": [
+      { "number": "8", "label": "Anos criando sites" },
+      { "number": "A→Z", "label": "Do design à publicação" }
+    ],
+    "photo": {
+      "src": "/uploads/perfil.jpg",
+      "alt": "Matheus, criador dos sites"
+    }
+  },
+  "projects": {
+    "tag": "Projetos",
+    "heading": "Trabalhos recentes",
+    "lead": "Uma seleção de sites que criei — do conceito visual à implementação e publicação."
+  },
+  "contact": {
+    "tag": "Contato",
+    "heading": "Vamos tirar o seu site do papel?",
+    "lead": "Conte um pouco sobre a sua ideia e eu retorno com os próximos passos e um orçamento.",
+    "links": [
+      { "label": "seuemail@exemplo.com", "href": "mailto:seuemail@exemplo.com", "primary": true },
+      { "label": "WhatsApp", "href": "https://wa.me/5521995753797?text=Ol%C3%A1%2C%20Matheus!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20site." }
+    ]
+  },
+  "social": {},
+  "analytics": {
+    "plausibleDomain": ""
+  }
+}

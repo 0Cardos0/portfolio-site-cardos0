@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardos0 — Portfólio de Sites</title>
+  <meta name="description" content="Portfólio de sites criados por Cardos0 — design e desenvolvimento web." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">Cardos0<span class="dot">.</span></a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="#sobre">Sobre</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema claro/escuro">
+          <span class="icon icon-sun">☀</span>
+          <span class="icon icon-moon">☾</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">Design &amp; Desenvolvimento Web</p>
+        <h1>Sites que unem <span class="highlight">design</span> e <span class="highlight">código</span>.</h1>
+        <p class="hero-lead">
+          Aqui você encontra os projetos de sites que já criei — do conceito visual
+          à implementação em HTML, CSS e JavaScript.
+        </p>
+        <div class="hero-cta">
+          <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+          <a href="#contato" class="btn btn-ghost">Falar comigo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre" class="section">
+      <div class="container about-grid">
+        <div class="about-text">
+          <p class="section-tag">Sobre</p>
+          <h2>Quem faz os sites</h2>
+          <p>
+            <!-- TODO: escreva aqui uma bio curta sobre você, sua experiência e sua abordagem de trabalho -->
+            Este é um espaço reservado para a sua apresentação. Conte um pouco sobre sua
+            trajetória, como trabalha e o que te diferencia na hora de criar um site.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">--</span>
+            <span class="stat-label">Projetos entregues</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">--</span>
+            <span class="stat-label">Clientes atendidos</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">--</span>
+            <span class="stat-label">Anos de experiência</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJETOS ===== -->
+    <section id="projetos" class="section section-alt">
+      <div class="container">
+        <p class="section-tag">Projetos</p>
+        <h2>Trabalhos recentes</h2>
+        <p class="section-lead">
+          Em breve, os projetos reais vão substituir os cards abaixo. Por enquanto,
+          esta é a estrutura de exibição do portfólio.
+        </p>
+
+        <div class="filter-bar" id="filter-bar">
+          <button class="filter-btn is-active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="institucional">Institucional</button>
+          <button class="filter-btn" data-filter="comunidade">Comunidade</button>
+          <button class="filter-btn" data-filter="landing">Landing Page</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+
+          <!-- PROJECT CARD (placeholder) — duplique este bloco para cada projeto real -->
+          <article class="project-card" data-category="institucional">
+            <div class="project-thumb placeholder-thumb">
+              <span>Screenshot em breve</span>
+            </div>
+            <div class="project-body">
+              <h3>Nome do Projeto 1</h3>
+              <p>Breve descrição do site: o que foi feito, para quem e qual foi o objetivo.</p>
+              <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+              </div>
+              <a href="#" class="project-link">Ver projeto →</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="comunidade">
+            <div class="project-thumb placeholder-thumb">
+              <span>Screenshot em breve</span>
+            </div>
+            <div class="project-body">
+              <h3>Nome do Projeto 2</h3>
+              <p>Breve descrição do site: o que foi feito, para quem e qual foi o objetivo.</p>
+              <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+              </div>
+              <a href="#" class="project-link">Ver projeto →</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="landing">
+            <div class="project-thumb placeholder-thumb">
+              <span>Screenshot em breve</span>
+            </div>
+            <div class="project-body">
+              <h3>Nome do Projeto 3</h3>
+              <p>Breve descrição do site: o que foi feito, para quem e qual foi o objetivo.</p>
+              <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+              </div>
+              <a href="#" class="project-link">Ver projeto →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTATO ===== -->
+    <section id="contato" class="section section-alt">
+      <div class="container contact-inner">
+        <p class="section-tag">Contato</p>
+        <h2>Vamos criar seu site?</h2>
+        <p class="section-lead">
+          Entre em contato para conversarmos sobre o seu projeto.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:seuemail@exemplo.com" class="btn btn-primary">seuemail@exemplo.com</a>
+          <a href="#" class="btn btn-ghost">WhatsApp</a>
+          <a href="#" class="btn btn-ghost">GitHub</a>
+          <a href="#" class="btn btn-ghost">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Cardos0. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

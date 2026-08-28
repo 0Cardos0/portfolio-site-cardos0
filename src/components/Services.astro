@@ -1,0 +1,42 @@
+---
+import { site } from '@config/site';
+const { tag, heading, lead, items } = site.services;
+---
+
+<section id="servicos" class="section section-alt">
+  <div class="container">
+    <p class="section-tag" data-reveal>{tag}</p>
+    <h2 data-reveal>{heading}</h2>
+    <p class="section-lead" data-reveal>{lead}</p>
+
+    <ol class="card-grid services-grid">
+      {
+        items.map((item, i) => (
+          <li class="feature-card" data-reveal>
+            <span class="feature-index">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
