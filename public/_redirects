@@ -1,0 +1,7 @@
+# O painel /admin (Decap) só funciona em ambiente local:
+#   npm run admin:local  +  npm run dev  ->  http://localhost:4321/admin/
+# Em produção ele fica desativado para reduzir superfície de ataque
+# (carrega script de terceiros e expõe a config do repositório).
+# Para reativar no site publicado, apague as duas linhas abaixo.
+/admin      /404.html   404
+/admin/*    /404.html   404
