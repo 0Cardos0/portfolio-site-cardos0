@@ -99,7 +99,7 @@
     "heading": "Vamos tirar o seu site do papel?",
     "lead": "Conte um pouco sobre a sua ideia e eu retorno com os próximos passos e um orçamento.",
     "links": [
-      { "label": "seuemail@exemplo.com", "href": "mailto:seuemail@exemplo.com", "primary": true },
+      { "label": "contato.cardos0@proton.me", "href": "mailto:contato.cardos0@proton.me", "primary": true },
       { "label": "WhatsApp", "href": "https://wa.me/5521995753797?text=Ol%C3%A1%2C%20Matheus!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20site." }
     ]
   },
