@@ -1,0 +1,11 @@
+# Configuração do deploy no Cloudflare (Workers static assets).
+# O build roda `npm run build` (gera dist/) e o Cloudflare roda `npx wrangler deploy`,
+# que sobe o conteúdo de dist/ como site estático — sem script de Worker.
+
+name = "portfolio-site-cardos0"
+compatibility_date = "2025-08-27"
+
+[assets]
+directory = "./dist"
+# Serve dist/404.html (com status 404) para rotas inexistentes.
+not_found_handling = "404-page"
